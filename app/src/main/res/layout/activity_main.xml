@@ -10,8 +10,24 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.torv.adam.aplayer.MainActivity">
 
-    <TextView
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:layout_centerInParent="true"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:id="@+id/id_videoview"
+            android:text="VideoView"
+            android:layout_width="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/id_mediacodec"
+            android:text="MediaCodec"
+            android:layout_below="@id/id_videoview"
+            android:layout_centerHorizontal="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
 </RelativeLayout>
