@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 
+import com.torv.adam.aplayer.mediacodec.MediaCodecActivity;
 import com.torv.adam.aplayer.videoview.VideoViewActivity;
 
 public class MainActivity extends AppCompatActivity{
@@ -28,7 +29,7 @@ public class MainActivity extends AppCompatActivity{
         findViewById(R.id.id_mediacodec).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                startActivity(new Intent(MainActivity.this, MediaCodecActivity.class));
             }
         });
     }
