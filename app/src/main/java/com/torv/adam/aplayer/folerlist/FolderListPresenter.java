@@ -9,6 +9,7 @@ import android.provider.MediaStore;
 import com.torv.adam.aplayer.bean.FolderItem;
 import com.torv.adam.aplayer.bean.VideoItem;
 import com.torv.adam.aplayer.utils.L;
+import com.torv.adam.aplayer.utils.Util;
 import com.torv.adam.aplayer.vp.IContract;
 
 import java.util.ArrayList;
@@ -30,12 +31,7 @@ public class FolderListPresenter implements IContract.IPresenter{
 
     @Override
     public void start() {
-        new MediaScannerWrapper(mContext, Environment.getExternalStorageDirectory() + "/Download", "*/*", new MediaScannerWrapper.IScanCompletedListener() {
-            @Override
-            public void onScanCompleted() {
-                scanVideoFiles();
-            }
-        }).scan();
+        scanVideoFiles();
     }
 
     private void scanVideoFiles() {
@@ -49,27 +45,28 @@ public class FolderListPresenter implements IContract.IPresenter{
             return;
         }
 
-        Uri uri = MediaStore.Video.Media.EXTERNAL_CONTENT_URI;
+        Uri uri = MediaStore.Files.getContentUri("external");
 
-        String[] projection = { MediaStore.Video.Media._ID,
-                MediaStore.Video.Media.DATA, MediaStore.Video.Media.TITLE,
-                MediaStore.Video.Media.MIME_TYPE,
-                MediaStore.Video.Media.DISPLAY_NAME };
+        String[] projection = { MediaStore.Files.FileColumns.DATA, MediaStore.Files.FileColumns.DISPLAY_NAME };
 
         Cursor cursor = mContext.getContentResolver().query(uri, projection, null, null, null);
         if(null == cursor) {
+            L.e("cursor is null");
             mView.onData(null);
         } else {
-            List<FolderItem> mFolderList = new ArrayList<>();
+            /** query all files and filter the vieo file */
+            List<VideoItem> videoList = new ArrayList<>();
             try {
                 L.d("count : " + cursor.getCount());
                 while(cursor.moveToNext()) {
-                    VideoItem videoItem = new VideoItem();
-                    videoItem.path = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DATA));
-                    videoItem.fileName = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.DISPLAY_NAME));
-                    videoItem.title = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.TITLE));
-                    videoItem.mineType = cursor.getString(cursor.getColumnIndex(MediaStore.Video.Media.MIME_TYPE));
-                    L.d(videoItem.path + "," + videoItem.fileName + "," + videoItem.title + "," +videoItem.mineType);
+                    String fileName = cursor.getString(cursor.getColumnIndex(MediaStore.Files.FileColumns.DISPLAY_NAME));
+                    if(Util.isVideoFile(fileName)) {
+                        VideoItem videoItem = new VideoItem();
+                        videoItem.path = cursor.getString(cursor.getColumnIndex(MediaStore.Files.FileColumns.DATA));
+                        videoItem.fileName = fileName;
+                        L.d(videoItem.path + "," + videoItem.fileName);
+                        videoList.add(videoItem);
+                    }
                 }
             } catch (Exception e){
                 e.printStackTrace();
@@ -77,8 +74,32 @@ public class FolderListPresenter implements IContract.IPresenter{
                 if(null != cursor) {
                     cursor.close();
                 }
-                mView.onData(mFolderList);
             }
+
+            /** list all folders, which contains videos, with video count*/
+            List<FolderItem> folderlist = new ArrayList<>();
+            boolean isExist;
+            for(VideoItem videoItem : videoList) {
+                isExist = false;
+                String folderPath = videoItem.path.substring(0, videoItem.path.indexOf(videoItem.fileName));
+                L.d("folder : " + folderPath);
+                for(FolderItem folderItem : folderlist) {
+                    if(folderItem.path.equalsIgnoreCase(folderPath)) {
+                        isExist = true;
+                        folderItem.videoCount ++;
+                    }
+                }
+
+                if(!isExist) {
+                    FolderItem folderItem = new FolderItem();
+                    folderItem.path = folderPath;
+                    folderItem.videoCount = 1;
+                    folderlist.add(folderItem);
+                }
+            }
+
+            /** return to view for display*/
+            mView.onData(folderlist);
         }
     }
 }
