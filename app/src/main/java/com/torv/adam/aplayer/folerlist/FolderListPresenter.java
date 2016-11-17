@@ -3,6 +3,7 @@ package com.torv.adam.aplayer.folerlist;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.os.Environment;
 import android.provider.MediaStore;
 
 import com.torv.adam.aplayer.bean.FolderItem;
@@ -29,7 +30,12 @@ public class FolderListPresenter implements IContract.IPresenter{
 
     @Override
     public void start() {
-        scanVideoFiles();
+        new MediaScannerWrapper(mContext, Environment.getExternalStorageDirectory() + "/Download", "*/*", new MediaScannerWrapper.IScanCompletedListener() {
+            @Override
+            public void onScanCompleted() {
+                scanVideoFiles();
+            }
+        }).scan();
     }
 
     private void scanVideoFiles() {
