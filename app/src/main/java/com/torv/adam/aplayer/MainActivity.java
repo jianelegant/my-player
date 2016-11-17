@@ -1,12 +1,11 @@
 package com.torv.adam.aplayer;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import com.torv.adam.aplayer.mediacodec.MediaCodecActivity;
-import com.torv.adam.aplayer.videoview.VideoViewActivity;
+import com.torv.adam.aplayer.folerlist.FolderListActivity;
 
 public class MainActivity extends AppCompatActivity{
 
@@ -22,14 +21,13 @@ public class MainActivity extends AppCompatActivity{
         findViewById(R.id.id_videoview).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, VideoViewActivity.class));
+                startActivity(new Intent(MainActivity.this, FolderListActivity.class));
             }
         });
 
         findViewById(R.id.id_mediacodec).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(MainActivity.this, MediaCodecActivity.class));
             }
         });
     }
