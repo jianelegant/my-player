@@ -7,5 +7,6 @@ package com.torv.adam.aplayer.bean;
 public class FolderItem {
     public String path;
     public String name;
+    public String bucketDisplayName;
     public int videoCount;
 }

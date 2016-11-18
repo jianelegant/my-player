@@ -29,7 +29,7 @@
                 android:layout_toRightOf="@id/id_folder_icon"
                 android:ellipsize="start"
                 android:lines="2"
-                android:text="/Path/Path/Path/Path/Path/Path/Path/Path/Path/Path/Path/Path/Path/Path/Path/Path/Path/Path/Path/Path"
+                android:text="/Path/Path/Path/Path/Path/Path/Path/Path"
                 android:textSize="14dp" />
 
             <TextView

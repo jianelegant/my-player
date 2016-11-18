@@ -8,6 +8,7 @@ public class VideoItem {
 
     public String path;
     public String fileName;
+    public String bucketDisplayName;
     public String title;
     public String mineType;
 }

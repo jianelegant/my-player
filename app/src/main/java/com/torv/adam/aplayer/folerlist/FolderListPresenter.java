@@ -3,7 +3,6 @@ package com.torv.adam.aplayer.folerlist;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
-import android.os.Environment;
 import android.provider.MediaStore;
 
 import com.torv.adam.aplayer.bean.FolderItem;
@@ -47,7 +46,7 @@ public class FolderListPresenter implements IContract.IPresenter{
 
         Uri uri = MediaStore.Files.getContentUri("external");
 
-        String[] projection = { MediaStore.Files.FileColumns.DATA, MediaStore.Files.FileColumns.DISPLAY_NAME };
+        String[] projection = { MediaStore.Files.FileColumns.DATA, MediaStore.Files.FileColumns.DISPLAY_NAME, MediaStore.Images.Media.BUCKET_DISPLAY_NAME };
 
         Cursor cursor = mContext.getContentResolver().query(uri, projection, null, null, null);
         if(null == cursor) {
@@ -64,6 +63,7 @@ public class FolderListPresenter implements IContract.IPresenter{
                         VideoItem videoItem = new VideoItem();
                         videoItem.path = cursor.getString(cursor.getColumnIndex(MediaStore.Files.FileColumns.DATA));
                         videoItem.fileName = fileName;
+                        videoItem.bucketDisplayName = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.BUCKET_DISPLAY_NAME));
                         L.d(videoItem.path + "," + videoItem.fileName);
                         videoList.add(videoItem);
                     }
@@ -93,6 +93,7 @@ public class FolderListPresenter implements IContract.IPresenter{
                 if(!isExist) {
                     FolderItem folderItem = new FolderItem();
                     folderItem.path = folderPath;
+                    folderItem.bucketDisplayName = videoItem.bucketDisplayName;
                     folderItem.videoCount = 1;
                     folderlist.add(folderItem);
                 }

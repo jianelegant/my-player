@@ -13,6 +13,7 @@ import android.widget.TextView;
 
 import com.torv.adam.aplayer.R;
 import com.torv.adam.aplayer.bean.FolderItem;
+import com.torv.adam.aplayer.utils.Font;
 import com.torv.adam.aplayer.utils.L;
 import com.torv.adam.aplayer.vp.IContract;
 
@@ -107,7 +108,9 @@ public class FolderListFragment extends Fragment implements IContract.IView<List
         public FolderViewHolder(View itemView) {
             super(itemView);
             pathName = (TextView) itemView.findViewById(R.id.id_folder_path);
+            pathName.setTypeface(Font.instance.getTypeFace(Font.ROBOTO_REGULAR));
             videoCount = (TextView) itemView.findViewById(R.id.id_folder_videocount);
+            videoCount.setTypeface(Font.instance.getTypeFace(Font.ROBOTO_LIGHT));
         }
     }
 
@@ -140,7 +143,7 @@ public class FolderListFragment extends Fragment implements IContract.IView<List
         public void onBindViewHolder(FolderViewHolder holder, int position) {
             FolderItem folderItem = mFolderList.get(position);
             if(null != folderItem) {
-                holder.pathName.setText(folderItem.path);
+                holder.pathName.setText(folderItem.bucketDisplayName);
                 holder.videoCount.setText(String.format(mContext.getResources().getString(R.string.xx_vides), folderItem.videoCount));
             }
         }
