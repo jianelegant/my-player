@@ -1,6 +1,7 @@
 package com.torv.adam.aplayer.folerlist;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -13,9 +14,10 @@ import android.widget.TextView;
 
 import com.torv.adam.aplayer.R;
 import com.torv.adam.aplayer.bean.FolderItem;
+import com.torv.adam.aplayer.utils.Constant;
 import com.torv.adam.aplayer.utils.Font;
 import com.torv.adam.aplayer.utils.L;
-import com.torv.adam.aplayer.vp.IContract;
+import com.torv.adam.aplayer.videolist.VideoListActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +26,9 @@ import java.util.List;
  * Created by AdamLi on 2016/11/17.
  */
 
-public class FolderListFragment extends Fragment implements IContract.IView<List<FolderItem>>{
+public class FolderListFragment extends Fragment implements IFolderListContract.IView{
 
-    private IContract.IPresenter mPresenter;
+    private IFolderListContract.IPresenter mPresenter;
 
     private RecyclerView mRecyclerView;
     private FolderListAdapter mAdapter;
@@ -141,10 +143,19 @@ public class FolderListFragment extends Fragment implements IContract.IView<List
 
         @Override
         public void onBindViewHolder(FolderViewHolder holder, int position) {
-            FolderItem folderItem = mFolderList.get(position);
+            final FolderItem folderItem = mFolderList.get(position);
             if(null != folderItem) {
                 holder.pathName.setText(folderItem.bucketDisplayName);
                 holder.videoCount.setText(String.format(mContext.getResources().getString(R.string.xx_vides), folderItem.videoCount));
+
+                holder.pathName.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(mContext, VideoListActivity.class);
+                        intent.putExtra(Constant.VIDEO_PATH_KEY, folderItem.path);
+                        mContext.startActivity(intent);
+                    }
+                });
             }
         }
 

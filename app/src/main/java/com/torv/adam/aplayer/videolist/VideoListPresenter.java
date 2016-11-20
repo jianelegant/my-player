@@ -1,11 +1,10 @@
-package com.torv.adam.aplayer.folerlist;
+package com.torv.adam.aplayer.videolist;
 
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
 
-import com.torv.adam.aplayer.bean.FolderItem;
 import com.torv.adam.aplayer.bean.VideoItem;
 import com.torv.adam.aplayer.utils.L;
 import com.torv.adam.aplayer.utils.Util;
@@ -14,25 +13,25 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by AdamLi on 2016/11/17.
+ * Created by admin on 16/11/20.
  */
 
-public class FolderListPresenter implements IFolderListContract.IPresenter{
+public class VideoListPresenter implements IVideoListContract.IPresenter{
 
-    final IFolderListContract.IView mView;
+    final IVideoListContract.IView mView;
     final Context mContext;
 
-    public FolderListPresenter(Context context, IFolderListContract.IView view) {
-        mContext = context;
-        mView = view;
+    public VideoListPresenter(Context context, IVideoListContract.IView view) {
+        this.mView = view;
+        this.mContext = context;
     }
 
     @Override
-    public void start() {
-        scanVideoFiles();
+    public void start(String path) {
+        scanVideoFiles(path);
     }
 
-    private void scanVideoFiles() {
+    private void scanVideoFiles(String path) {
         if(null == mView) {
             L.e("view is null");
             return;
@@ -57,11 +56,11 @@ public class FolderListPresenter implements IFolderListContract.IPresenter{
             try {
                 L.d("count : " + cursor.getCount());
                 while(cursor.moveToNext()) {
-                    String fileName = cursor.getString(cursor.getColumnIndex(MediaStore.Files.FileColumns.DISPLAY_NAME));
-                    if(Util.isVideoFile(fileName)) {
+                    String pathAndName = cursor.getString(cursor.getColumnIndex(MediaStore.Files.FileColumns.DATA));
+                    if(null != pathAndName && Util.isVideoFile(pathAndName) && pathAndName.contains(path)) {
                         VideoItem videoItem = new VideoItem();
-                        videoItem.path = cursor.getString(cursor.getColumnIndex(MediaStore.Files.FileColumns.DATA));
-                        videoItem.fileName = fileName;
+                        videoItem.path = pathAndName;
+                        videoItem.fileName = cursor.getString(cursor.getColumnIndex(MediaStore.Files.FileColumns.DISPLAY_NAME));;
                         videoItem.bucketDisplayName = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.BUCKET_DISPLAY_NAME));
                         L.d(videoItem.path + "," + videoItem.fileName);
                         videoList.add(videoItem);
@@ -75,31 +74,8 @@ public class FolderListPresenter implements IFolderListContract.IPresenter{
                 }
             }
 
-            /** list all folders, which contains videos, with video count*/
-            List<FolderItem> folderlist = new ArrayList<>();
-            boolean isExist;
-            for(VideoItem videoItem : videoList) {
-                isExist = false;
-                String folderPath = videoItem.path.substring(0, videoItem.path.indexOf(videoItem.fileName));
-                L.d("folder : " + folderPath);
-                for(FolderItem folderItem : folderlist) {
-                    if(folderItem.path.equalsIgnoreCase(folderPath)) {
-                        isExist = true;
-                        folderItem.videoCount ++;
-                    }
-                }
-
-                if(!isExist) {
-                    FolderItem folderItem = new FolderItem();
-                    folderItem.path = folderPath;
-                    folderItem.bucketDisplayName = videoItem.bucketDisplayName;
-                    folderItem.videoCount = 1;
-                    folderlist.add(folderItem);
-                }
-            }
-
             /** return to view for display*/
-            mView.onData(folderlist);
+            mView.onData(videoList);
         }
     }
 }
