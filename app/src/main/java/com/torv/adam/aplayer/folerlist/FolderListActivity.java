@@ -31,6 +31,12 @@ public class FolderListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_folder_list);
 
         mDenyHint = (TextView) findViewById(R.id.id_deny_hint);
+        findViewById(R.id.id_back).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
         checkPermission();
     }
 
@@ -72,7 +78,7 @@ public class FolderListActivity extends AppCompatActivity {
         Fragment newFragment = new FolderListFragment();
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.id_frg_holder, newFragment);
-        transaction.commit();
+        transaction.commitAllowingStateLoss();
     }
 
     @Override
