@@ -11,6 +11,7 @@ import android.view.Window;
 import android.widget.TableLayout;
 import android.widget.Toast;
 
+import com.torv.adam.libs.utils.L;
 import com.torv.adam.player.media.AndroidMediaController;
 import com.torv.adam.player.media.IjkVideoView;
 
@@ -60,6 +61,9 @@ public class PlayerActivity extends AppCompatActivity {
     private void initViews() {
         mVideoView = (IjkVideoView) findViewById(R.id.id_videoview);
         mHudView = (TableLayout) findViewById(R.id.hud_view);
+        if(L.getIsDebug()) {
+            mHudView.setVisibility(View.VISIBLE);
+        }
 
         Window window = getWindow();
         View decorView = window.getDecorView();
