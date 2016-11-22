@@ -17,5 +17,9 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile rootProject.ext.dependencies.ijkplayerJava
+    compile rootProject.ext.dependencies.ijkplayerArmV5
+    compile rootProject.ext.dependencies.ijkplayerArmV7
+    compile project(':libs')
 }

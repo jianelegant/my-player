@@ -19,8 +19,17 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".folerlist.FolderListActivity" />
-        <activity android:name=".videolist.VideoListActivity"></activity>
+        <activity
+            android:name=".folerlist.FolderListActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+        <activity
+            android:name=".videolist.VideoListActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize" />
+
+        <service
+            android:name="com.torv.adam.player.services.MediaPlayerService"
+            android:enabled="false"
+            android:exported="false" />
     </application>
 
 </manifest>
