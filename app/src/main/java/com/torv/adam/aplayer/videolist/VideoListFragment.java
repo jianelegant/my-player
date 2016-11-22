@@ -1,7 +1,6 @@
 package com.torv.adam.aplayer.videolist;
 
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -14,9 +13,9 @@ import android.widget.TextView;
 
 import com.torv.adam.aplayer.R;
 import com.torv.adam.aplayer.bean.VideoItem;
-import com.torv.adam.aplayer.utils.Constant;
-import com.torv.adam.aplayer.utils.Font;
-import com.torv.adam.aplayer.utils.L;
+import com.torv.adam.libs.utils.Constant;
+import com.torv.adam.libs.utils.Font;
+import com.torv.adam.libs.utils.L;
 import com.torv.adam.player.PlayerActivity;
 
 import java.util.ArrayList;

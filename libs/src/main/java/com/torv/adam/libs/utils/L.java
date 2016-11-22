@@ -1,6 +1,4 @@
-package com.torv.adam.aplayer.utils;
-
-import com.torv.adam.aplayer.BuildConfig;
+package com.torv.adam.libs.utils;
 
 /**
  * Created by AdamLi on 2016/11/17.
@@ -8,7 +6,7 @@ import com.torv.adam.aplayer.BuildConfig;
 
 public class L {
 
-    private static boolean isDebug = BuildConfig.DEBUG;
+    private static boolean isDebug = false;
     private static String DEFAULT_TAG = "Adam";
 
     public static void setIsDebug(boolean debug) {

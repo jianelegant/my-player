@@ -1,4 +1,4 @@
-package com.torv.adam.aplayer.utils;
+package com.torv.adam.libs.utils;
 
 import android.app.Activity;
 import android.content.Context;

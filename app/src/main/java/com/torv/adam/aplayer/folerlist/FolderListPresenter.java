@@ -7,8 +7,8 @@ import android.provider.MediaStore;
 
 import com.torv.adam.aplayer.bean.FolderItem;
 import com.torv.adam.aplayer.bean.VideoItem;
-import com.torv.adam.aplayer.utils.L;
-import com.torv.adam.aplayer.utils.Util;
+import com.torv.adam.libs.utils.L;
+import com.torv.adam.libs.utils.Util;
 
 import java.util.ArrayList;
 import java.util.List;

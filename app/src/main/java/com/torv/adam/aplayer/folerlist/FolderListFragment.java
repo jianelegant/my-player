@@ -14,10 +14,10 @@ import android.widget.TextView;
 
 import com.torv.adam.aplayer.R;
 import com.torv.adam.aplayer.bean.FolderItem;
-import com.torv.adam.aplayer.utils.Constant;
-import com.torv.adam.aplayer.utils.Font;
-import com.torv.adam.aplayer.utils.L;
 import com.torv.adam.aplayer.videolist.VideoListActivity;
+import com.torv.adam.libs.utils.Constant;
+import com.torv.adam.libs.utils.Font;
+import com.torv.adam.libs.utils.L;
 
 import java.util.ArrayList;
 import java.util.List;

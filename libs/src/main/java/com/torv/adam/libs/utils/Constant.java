@@ -1,4 +1,4 @@
-package com.torv.adam.aplayer.utils;
+package com.torv.adam.libs.utils;
 
 /**
  * Created by admin on 16/11/20.

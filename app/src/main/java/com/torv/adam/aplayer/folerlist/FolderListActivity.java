@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.torv.adam.aplayer.R;
-import com.torv.adam.aplayer.utils.PermissionUtil;
+import com.torv.adam.libs.utils.PermissionUtil;
 
 import java.util.List;
 
