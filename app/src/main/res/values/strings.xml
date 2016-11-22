@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">APlayer</string>
     <string name="xx_vides">%d Videos</string>
+
+    <!-- permissions -->
+    <string name="permission_deny_hint">Can not watch videos without storage permissions</string>
+    <string name="permission_deny_hint2">You can also go to System Settings>Apps>APlayer>Permissions to enable the storage permission.</string>
+    <string name="permission_rational_title">Premission Request</string>
+    <string name="permission_rational_msg">Please grant the storage permission in order to play video</string>
+    <string name="permission_rational_grant">Grant</string>
+    <string name="permission_rational_cancel">Cancel</string>
 </resources>

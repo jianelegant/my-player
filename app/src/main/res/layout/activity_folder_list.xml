@@ -6,8 +6,16 @@
     android:layout_height="match_parent"
     tools:context="com.torv.adam.aplayer.folerlist.FolderListActivity">
 
-    <fragment
-        android:name="com.torv.adam.aplayer.folerlist.FolderListFragment"
+    <FrameLayout
+        android:id="@+id/id_frg_holder"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
+
+    <TextView
+        android:id="@+id/id_deny_hint"
+        android:layout_centerInParent="true"
+        android:layout_margin="10dp"
+        android:text="@string/permission_deny_hint2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 </RelativeLayout>
