@@ -1,11 +1,26 @@
 package com.torv.adam.aplayer.utils;
 
+import android.text.TextUtils;
+
 /**
  * Created by admin on 16/11/17.
  */
 
 public class Util {
 
+    /**
+     * path = pathAndName - name
+     * @param pathAndName
+     * @param name
+     * @return
+     */
+    public static String getVideoPath(String pathAndName, String name){
+        String path = null;
+        if(!TextUtils.isEmpty(pathAndName) && !TextUtils.isEmpty(name)){
+            path = pathAndName.substring(0, pathAndName.indexOf(name));
+        }
+        return path;
+    }
     /**
      * Check the file is video file or not
      * @param fileName with extension name

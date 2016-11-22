@@ -80,7 +80,7 @@ public class FolderListPresenter implements IFolderListContract.IPresenter{
             boolean isExist;
             for(VideoItem videoItem : videoList) {
                 isExist = false;
-                String folderPath = videoItem.path.substring(0, videoItem.path.indexOf(videoItem.fileName));
+                String folderPath = Util.getVideoPath(videoItem.path, videoItem.fileName);
                 L.d("folder : " + folderPath);
                 for(FolderItem folderItem : folderlist) {
                     if(folderItem.path.equalsIgnoreCase(folderPath)) {

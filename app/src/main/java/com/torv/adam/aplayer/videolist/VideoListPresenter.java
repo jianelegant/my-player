@@ -57,10 +57,12 @@ public class VideoListPresenter implements IVideoListContract.IPresenter{
                 L.d("count : " + cursor.getCount());
                 while(cursor.moveToNext()) {
                     String pathAndName = cursor.getString(cursor.getColumnIndex(MediaStore.Files.FileColumns.DATA));
-                    if(null != pathAndName && Util.isVideoFile(pathAndName) && pathAndName.contains(path)) {
+                    String fileName = cursor.getString(cursor.getColumnIndex(MediaStore.Files.FileColumns.DISPLAY_NAME));
+                    String videoPath = Util.getVideoPath(pathAndName, fileName);
+                    if(null != pathAndName && Util.isVideoFile(pathAndName) && null != path && path.equals(videoPath)) {
                         VideoItem videoItem = new VideoItem();
                         videoItem.path = pathAndName;
-                        videoItem.fileName = cursor.getString(cursor.getColumnIndex(MediaStore.Files.FileColumns.DISPLAY_NAME));;
+                        videoItem.fileName = fileName;
                         videoItem.bucketDisplayName = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.BUCKET_DISPLAY_NAME));
                         L.d(videoItem.path + "," + videoItem.fileName);
                         videoList.add(videoItem);
