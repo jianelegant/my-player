@@ -1,6 +1,7 @@
 package com.torv.adam.aplayer.videolist;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -16,6 +17,7 @@ import com.torv.adam.aplayer.bean.VideoItem;
 import com.torv.adam.aplayer.utils.Constant;
 import com.torv.adam.aplayer.utils.Font;
 import com.torv.adam.aplayer.utils.L;
+import com.torv.adam.player.PlayerActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -145,6 +147,14 @@ public class VideoListFragment extends Fragment implements IVideoListContract.IV
 
                 holder.videoName.setText(videoItem.fileName);
                 holder.videoName.setTypeface(Font.instance.getTypeFace(Font.ROBOTO_REGULAR));
+
+                final String pathAndName = videoItem.path;
+                holder.videoName.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        PlayerActivity.jumpTo(mContext, pathAndName);
+                    }
+                });
 
 //                holder.videoDuration.setText(videoItem.);
             }
