@@ -1,24 +1,104 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/activity_player"
-    android:background="#000000"
+    android:id="@+id/id_activity_player"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#000000">
 
+    <!--VideoView-->
     <com.torv.adam.player.media.IjkVideoView
         android:id="@+id/id_videoview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center" />
 
+    <!--debug info-->
     <TableLayout
         android:id="@+id/hud_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="right|center_vertical"
         android:layout_centerInParent="true"
+        android:layout_gravity="right|center_vertical"
         android:background="@color/ijk_transparent_dark"
-        android:visibility="gone"
-        android:padding="8dp" />
+        android:padding="8dp"
+        android:visibility="gone" />
 
+    <!--Top Controller-->
+    <RelativeLayout
+        android:id="@+id/id_top_controller"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentTop="true"
+        android:background="#AA000000"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/id_back"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:padding="14dp"
+            android:src="@drawable/back_icon" />
+
+        <TextView
+            android:id="@+id/id_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/id_back"
+            android:ellipsize="middle"
+            android:lines="1"
+            android:paddingRight="9dp"
+            android:text="Title.Title.Title.Title.Title.Title.Title.Title.Title.Title.Title.Title.Title.Title.Title.Title.Title.Title.Title.Title.Title.Title.Title.Title.Title"
+            android:textColor="#ffffff"
+            android:textSize="16dp" />
+    </RelativeLayout>
+
+    <!--Bottom Controller-->
+    <RelativeLayout
+        android:id="@+id/id_bottom_controller"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:background="#AA000000"
+        android:visibility="visible">
+
+        <ImageView
+            android:id="@+id/id_pause"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:padding="10dp"
+            android:src="@drawable/pause_icon" />
+
+        <TextView
+            android:id="@+id/id_play_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/id_pause"
+            android:text="00:00:00"
+            android:textColor="#ffff" />
+
+        <TextView
+            android:id="@+id/id_duration"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dp"
+            android:text="01:20:02"
+            android:textColor="#ffffff" />
+
+        <SeekBar
+            android:id="@+id/id_progress"
+            android:progress="0"
+            android:max="1000"
+            android:layout_toRightOf="@id/id_play_time"
+            android:layout_toLeftOf="@id/id_duration"
+            android:layout_marginRight="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_centerVertical="true"
+            android:layout_width="match_parent"
+            android:progressBackgroundTint="@color/colorWhite"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
 </RelativeLayout>

@@ -2,12 +2,19 @@ package com.torv.adam.libs.utils;
 
 import android.text.TextUtils;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * Created by admin on 16/11/17.
  */
 
 public class Util {
 
+    public static String convertMs2HMS(long millis){
+        return String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis),
+                TimeUnit.MILLISECONDS.toMinutes(millis) % TimeUnit.HOURS.toMinutes(1),
+                TimeUnit.MILLISECONDS.toSeconds(millis) % TimeUnit.MINUTES.toSeconds(1));
+    }
     /**
      * path = pathAndName - name
      * @param pathAndName

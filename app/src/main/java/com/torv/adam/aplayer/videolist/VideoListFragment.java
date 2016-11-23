@@ -148,10 +148,11 @@ public class VideoListFragment extends Fragment implements IVideoListContract.IV
                 holder.videoName.setTypeface(Font.instance.getTypeFace(Font.ROBOTO_REGULAR));
 
                 final String pathAndName = videoItem.path;
+                final String name = videoItem.fileName;
                 holder.videoName.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        PlayerActivity.jumpTo(mContext, pathAndName);
+                        PlayerActivity.jumpTo(mContext, pathAndName, name);
                     }
                 });
 

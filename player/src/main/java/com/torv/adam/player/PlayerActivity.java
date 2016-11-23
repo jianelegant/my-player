@@ -19,9 +19,12 @@ import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 public class PlayerActivity extends AppCompatActivity {
 
     private static final String EXTRA_KEY_PATH = "extra_key_path";
+    private static final String EXTRA_KEY_NAME = "extra_key_name";
 
     private IjkVideoView mVideoView;
     private TableLayout mHudView;
+
+    private PlayerUIController mUIController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,13 +37,14 @@ public class PlayerActivity extends AppCompatActivity {
         initPlayer();
     }
 
-    public static void jumpTo(Context context, String path){
+    public static void jumpTo(Context context, String path, String name){
         if(null == context || TextUtils.isEmpty(path)) {
             Toast.makeText(context, "Path is null", Toast.LENGTH_SHORT).show();
             return;
         }
         Intent intent = new Intent(context, PlayerActivity.class);
         intent.putExtra(EXTRA_KEY_PATH, path);
+        intent.putExtra(EXTRA_KEY_NAME, name);
         context.startActivity(intent);
     }
 
@@ -49,7 +53,12 @@ public class PlayerActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         String path = intent.getStringExtra(EXTRA_KEY_PATH);
+        String name = intent.getStringExtra(EXTRA_KEY_NAME);
         mVideoView.setVideoPath(path);
+
+        View rootView = findViewById(R.id.id_activity_player);
+        mUIController = new PlayerUIController(PlayerActivity.this, rootView, mVideoView);
+        mUIController.setTitle(name);
     }
 
     private void initViews() {
