@@ -60,7 +60,7 @@
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
         android:background="#AA000000"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/id_pause"
