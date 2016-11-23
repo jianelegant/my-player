@@ -2,6 +2,7 @@ package com.torv.adam.libs.utils;
 
 import android.text.TextUtils;
 
+import java.text.DecimalFormat;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -10,6 +11,31 @@ import java.util.concurrent.TimeUnit;
 
 public class Util {
 
+    /**
+     * Convert Byte to display format K / M / G
+     * @param size
+     * @return
+     */
+    public static String convertByte2KMG(long size) {
+        if(size <= 0) {
+            return "0";
+        } else if(size < 1048576) {
+            // < 1M
+            return size/1024 + "K";
+        } else if(size < 1073741824) {
+            // < 1G
+            return size/1024/1024 + "M";
+        } else {
+            DecimalFormat df = new DecimalFormat("#.00");
+            double value = ((double)size)/1024/1024/1024;
+            return df.format(value) + "G";
+        }
+    }
+    /**
+     * Convert ms to 00:00:00 format
+     * @param millis
+     * @return
+     */
     public static String convertMs2HMS(long millis){
         return String.format("%02d:%02d:%02d", TimeUnit.MILLISECONDS.toHours(millis),
                 TimeUnit.MILLISECONDS.toMinutes(millis) % TimeUnit.HOURS.toMinutes(1),

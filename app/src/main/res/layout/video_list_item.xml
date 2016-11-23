@@ -28,8 +28,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_toRightOf="@id/id_video_icon"
-                android:ellipsize="start"
-                android:lines="2"
+                android:ellipsize="end"
+                android:lines="1"
                 android:text="The 13th floor"
                 android:textSize="14dp" />
 

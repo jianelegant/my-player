@@ -16,6 +16,7 @@ import com.torv.adam.aplayer.bean.VideoItem;
 import com.torv.adam.libs.utils.Constant;
 import com.torv.adam.libs.utils.Font;
 import com.torv.adam.libs.utils.L;
+import com.torv.adam.libs.utils.Util;
 import com.torv.adam.player.PlayerActivity;
 
 import java.util.ArrayList;
@@ -156,7 +157,7 @@ public class VideoListFragment extends Fragment implements IVideoListContract.IV
                     }
                 });
 
-//                holder.videoDuration.setText(videoItem.);
+                holder.videoDuration.setText(Util.convertByte2KMG(videoItem.size));
             }
         }
 

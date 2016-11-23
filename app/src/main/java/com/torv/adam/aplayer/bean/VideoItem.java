@@ -10,5 +10,6 @@ public class VideoItem {
     public String fileName;
     public String bucketDisplayName;
     public String title;
+    public long size;
     public String mineType;
 }

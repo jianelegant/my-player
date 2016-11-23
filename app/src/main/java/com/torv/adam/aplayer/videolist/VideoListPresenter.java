@@ -44,7 +44,7 @@ public class VideoListPresenter implements IVideoListContract.IPresenter{
 
         Uri uri = MediaStore.Files.getContentUri("external");
 
-        String[] projection = { MediaStore.Files.FileColumns.DATA, MediaStore.Files.FileColumns.DISPLAY_NAME, MediaStore.Images.Media.BUCKET_DISPLAY_NAME };
+        String[] projection = { MediaStore.Files.FileColumns.DATA, MediaStore.Files.FileColumns.DISPLAY_NAME, MediaStore.Images.Media.BUCKET_DISPLAY_NAME, MediaStore.Files.FileColumns.SIZE };
 
         Cursor cursor = mContext.getContentResolver().query(uri, projection, null, null, null);
         if(null == cursor) {
@@ -64,6 +64,7 @@ public class VideoListPresenter implements IVideoListContract.IPresenter{
                         videoItem.path = pathAndName;
                         videoItem.fileName = fileName;
                         videoItem.bucketDisplayName = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.BUCKET_DISPLAY_NAME));
+                        videoItem.size = cursor.getLong(cursor.getColumnIndex(MediaStore.Files.FileColumns.SIZE));
                         L.d(videoItem.path + "," + videoItem.fileName);
                         videoList.add(videoItem);
                     }
