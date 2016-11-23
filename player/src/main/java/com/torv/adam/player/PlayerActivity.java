@@ -12,7 +12,6 @@ import android.widget.TableLayout;
 import android.widget.Toast;
 
 import com.torv.adam.libs.utils.L;
-import com.torv.adam.player.media.AndroidMediaController;
 import com.torv.adam.player.media.IjkVideoView;
 
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
@@ -23,8 +22,6 @@ public class PlayerActivity extends AppCompatActivity {
 
     private IjkVideoView mVideoView;
     private TableLayout mHudView;
-
-    private AndroidMediaController mMediaController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +45,6 @@ public class PlayerActivity extends AppCompatActivity {
     }
 
     private void initPlayer() {
-        mMediaController = new AndroidMediaController(this, false);
-
-        mVideoView.setMediaController(mMediaController);
         mVideoView.setHudView(mHudView);
 
         Intent intent = getIntent();
@@ -65,6 +59,10 @@ public class PlayerActivity extends AppCompatActivity {
             mHudView.setVisibility(View.VISIBLE);
         }
 
+        hideSystemUI();
+    }
+
+    private void hideSystemUI() {
         Window window = getWindow();
         View decorView = window.getDecorView();
         window.setFlags(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN, View
@@ -74,7 +72,7 @@ public class PlayerActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_IMMERSIVE);
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
     }
 
     @Override
@@ -106,20 +104,5 @@ public class PlayerActivity extends AppCompatActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        Window window = getWindow();
-        View decorView = window.getDecorView();
-        if (Configuration.ORIENTATION_LANDSCAPE == newConfig.orientation) {
-            window.setFlags(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN, View
-                    .SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-            decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                    | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                    | View.SYSTEM_UI_FLAG_FULLSCREEN
-                    | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
-        } else {
-            window.clearFlags(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
-            decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_VISIBLE);
-        }
     }
 }
