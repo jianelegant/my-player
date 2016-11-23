@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.View;
@@ -11,6 +13,10 @@ import android.view.Window;
 import android.widget.TableLayout;
 import android.widget.Toast;
 
+import com.birbit.android.jobqueue.Job;
+import com.birbit.android.jobqueue.Params;
+import com.birbit.android.jobqueue.RetryConstraint;
+import com.torv.adam.libs.utils.AsyncJobMgr;
 import com.torv.adam.libs.utils.L;
 import com.torv.adam.player.media.IjkVideoView;
 
@@ -31,7 +37,6 @@ public class PlayerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player);
 
-        IjkMediaPlayer.loadLibrariesOnce(null);
         initViews();
 
         initPlayer();
@@ -113,5 +118,26 @@ public class PlayerActivity extends AppCompatActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
+    }
+
+    /** load player libraries, only call once when application start*/
+    public static void loadLibrariesOnce() {
+        AsyncJobMgr.instance.addAsyncJob(new Job(new Params(AsyncJobMgr.PRIORITY_HIGH)) {
+            @Override
+            public void onAdded() {}
+
+            @Override
+            public void onRun() throws Throwable {
+                IjkMediaPlayer.loadLibrariesOnce(null);
+            }
+
+            @Override
+            protected void onCancel(int cancelReason, @Nullable Throwable throwable) {}
+
+            @Override
+            protected RetryConstraint shouldReRunOnThrowable(@NonNull Throwable throwable, int runCount, int maxRunCount) {
+                return null;
+            }
+        });
     }
 }

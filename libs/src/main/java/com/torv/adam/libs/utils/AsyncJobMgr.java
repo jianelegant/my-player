@@ -13,6 +13,10 @@ import com.birbit.android.jobqueue.config.Configuration;
 public enum AsyncJobMgr {
     instance;
 
+    public static final int PRIORITY_LOW = 1;
+    public static final int PRIORITY_MID = 2;
+    public static final int PRIORITY_HIGH = 3;
+
     private JobManager mJobManager;
 
     public synchronized void init(Context context){
@@ -23,6 +27,9 @@ public enum AsyncJobMgr {
         }
     }
 
+    /**
+     * @param job
+     */
     public void addAsyncJob(Job job) {
         mJobManager.addJobInBackground(job);
     }

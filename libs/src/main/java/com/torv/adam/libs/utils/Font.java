@@ -23,7 +23,7 @@ public enum Font {
     public static final int ROBOTO_REGULAR = 1;
 
     public void loadFontsAsync(final Context context){
-        AsyncJobMgr.instance.addAsyncJob(new Job(new Params(1)) {
+        AsyncJobMgr.instance.addAsyncJob(new Job(new Params(AsyncJobMgr.PRIORITY_LOW)) {
             @Override
             public void onAdded() {}
 
