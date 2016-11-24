@@ -124,6 +124,12 @@ public class PlayerActivity extends AppCompatActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        hideSystemUI();
+    }
+
+    @Override
     protected void onStop() {
         super.onStop();
         if(null != mVideoView) {
