@@ -3,6 +3,7 @@ package com.torv.adam.libs.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
@@ -32,6 +33,9 @@ public class PermissionUtil {
 
     public static boolean checkNeedRequestPermission(String[] permissions) {
         L.d("E");
+        if(Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
+            return false;
+        }
         if (null == permissions) {
             return false;
         }

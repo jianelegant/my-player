@@ -4,6 +4,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
 import android.provider.MediaStore;
+import android.text.TextUtils;
 
 import com.torv.adam.aplayer.bean.VideoItem;
 import com.torv.adam.libs.utils.L;
@@ -36,8 +37,8 @@ public class VideoListPresenter implements IVideoListContract.IPresenter{
             L.e("view is null");
             return;
         }
-        if(null == mContext) {
-            L.e("mContext is null");
+        if(null == mContext || TextUtils.isEmpty(path)) {
+            L.e("mContext or path is null");
             mView.onData(null);
             return;
         }

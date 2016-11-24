@@ -1,6 +1,7 @@
 package com.torv.adam.aplayer.videolist;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -33,6 +34,7 @@ public class VideoListFragment extends Fragment implements IVideoListContract.IV
     private RecyclerView mRecyclerView;
 
     private VideoListAdapter mAdapter;
+    private View mEmptyView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -46,6 +48,7 @@ public class VideoListFragment extends Fragment implements IVideoListContract.IV
         L.d("Lifecycle");
         View view = inflater.inflate(R.layout.fragment_videolist, container, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.id_video_list);
+        mEmptyView = view.findViewById(R.id.id_empty);
         return view;
     }
 
@@ -65,7 +68,10 @@ public class VideoListFragment extends Fragment implements IVideoListContract.IV
     public void onStart() {
         super.onStart();
         L.d("Lifecycle");
-        path = getActivity().getIntent().getStringExtra(Constant.VIDEO_PATH_KEY);
+        Intent intent = getActivity().getIntent();
+        if(null != intent) {
+            path = intent.getStringExtra(Constant.VIDEO_PATH_KEY);
+        }
         mPresenter.start(path);
     }
 
@@ -102,6 +108,11 @@ public class VideoListFragment extends Fragment implements IVideoListContract.IV
     @Override
     public void onData(List<VideoItem> data) {
         L.d("onData");
+        if(null == data || 0 == data.size()) {
+            mEmptyView.setVisibility(View.VISIBLE);
+        } else {
+            mEmptyView.setVisibility(View.GONE);
+        }
         mAdapter.setData(data);
     }
 

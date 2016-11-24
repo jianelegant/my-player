@@ -9,4 +9,7 @@
     <string name="permission_rational_msg">Please grant the storage permission in order to play video</string>
     <string name="permission_rational_grant">Grant</string>
     <string name="permission_rational_cancel">Cancel</string>
+
+    <string name="no_videos_in_device">Oops! No videos in your device.</string>
+    <string name="no_videos_in_this_folder">Oops! No videos in this folder.</string>
 </resources>

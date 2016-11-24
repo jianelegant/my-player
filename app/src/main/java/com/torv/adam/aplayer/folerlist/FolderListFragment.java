@@ -32,6 +32,7 @@ public class FolderListFragment extends Fragment implements IFolderListContract.
 
     private RecyclerView mRecyclerView;
     private FolderListAdapter mAdapter;
+    private View mEmptyView;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -45,6 +46,7 @@ public class FolderListFragment extends Fragment implements IFolderListContract.
         L.d("Lifecycle");
         View view = inflater.inflate(R.layout.fragment_folerlist, container, false);
         mRecyclerView = (RecyclerView) view.findViewById(R.id.id_foler_list);
+        mEmptyView = view.findViewById(R.id.id_empty);
         return view;
     }
 
@@ -99,6 +101,11 @@ public class FolderListFragment extends Fragment implements IFolderListContract.
 
     @Override
     public void onData(List<FolderItem> data) {
+        if(null == data || 0 == data.size()) {
+            mEmptyView.setVisibility(View.VISIBLE);
+        } else {
+            mEmptyView.setVisibility(View.GONE);
+        }
         mAdapter.setData(data);
     }
 
