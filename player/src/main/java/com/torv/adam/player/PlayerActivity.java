@@ -20,6 +20,7 @@ import com.torv.adam.libs.utils.AsyncJobMgr;
 import com.torv.adam.libs.utils.L;
 import com.torv.adam.player.media.IjkVideoView;
 
+import tv.danmaku.ijk.media.player.IMediaPlayer;
 import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 public class PlayerActivity extends AppCompatActivity {
@@ -64,6 +65,13 @@ public class PlayerActivity extends AppCompatActivity {
         View rootView = findViewById(R.id.id_activity_player);
         mUIController = new PlayerUIController(PlayerActivity.this, rootView, mVideoView);
         mUIController.setTitle(name);
+
+        mVideoView.setOnCompletionListener(new IMediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(IMediaPlayer iMediaPlayer) {
+                finish();
+            }
+        });
     }
 
     private void initViews() {
