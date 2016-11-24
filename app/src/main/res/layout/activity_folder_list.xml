@@ -32,6 +32,16 @@
                 android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/id_open_file"
+                android:src="@drawable/plus_icon"
+                android:padding="13dp"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp"
+                android:background="?attr/selectableItemBackground"
+                android:layout_width="48dp"
+                android:layout_height="48dp" />
         </RelativeLayout>
     </android.support.v7.widget.CardView>
 
