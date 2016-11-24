@@ -24,6 +24,9 @@
             android:name=".videolist.VideoListActivity"
             android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|layoutDirection" />
         <activity
+            android:name="com.torv.adam.filedialog.FileDialog"
+            android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|layoutDirection" />
+        <activity
             android:name="com.torv.adam.player.PlayerActivity"
             android:screenOrientation="landscape"
             android:configChanges="keyboardHidden|orientation|screenSize|screenLayout|smallestScreenSize|layoutDirection" >

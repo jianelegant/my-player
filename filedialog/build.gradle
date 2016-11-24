@@ -7,6 +7,7 @@ android {
     defaultConfig {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
+
     }
     buildTypes {
         release {
@@ -17,8 +18,5 @@ android {
 }
 
 dependencies {
-    compile rootProject.ext.dependencies.ijkplayerJava
-    compile rootProject.ext.dependencies.ijkplayerArmV5
-    compile rootProject.ext.dependencies.ijkplayerArmV7
-    compile project(':filedialog')
+    compile project(':libs')
 }

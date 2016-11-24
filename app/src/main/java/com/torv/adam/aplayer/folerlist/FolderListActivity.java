@@ -2,18 +2,22 @@ package com.torv.adam.aplayer.folerlist;
 
 import android.Manifest;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.torv.adam.aplayer.R;
+import com.torv.adam.filedialog.FileDialog;
 import com.torv.adam.libs.utils.PermissionUtil;
+import com.torv.adam.player.PlayerActivity;
 
 import java.util.List;
 
@@ -22,6 +26,7 @@ public class FolderListActivity extends AppCompatActivity {
     private static final String[] PERMISSIONS = new String[] {
             Manifest.permission.READ_EXTERNAL_STORAGE
     };
+    private static final int OPEN_FILE_REQUEST_CODE = 456;
 
     private TextView mDenyHint;
 
@@ -35,6 +40,17 @@ public class FolderListActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 finish();
+            }
+        });
+
+        findViewById(R.id.id_open_file).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FolderListActivity.this, FileDialog.class);
+                intent.putExtra(FileDialog.START_PATH, "/sdcard");
+                //can user select directories or not
+//                intent.putExtra(FileDialog.CAN_SELECT_DIR, true);
+                startActivityForResult(intent, OPEN_FILE_REQUEST_CODE);
             }
         });
         checkPermission();
@@ -100,5 +116,20 @@ public class FolderListActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(RESULT_OK == resultCode) {
+            if(OPEN_FILE_REQUEST_CODE == requestCode) {
+                if(null != data) {
+                    String path = data.getStringExtra(FileDialog.RESULT_PATH);
+                    if(!TextUtils.isEmpty(path)) {
+                        PlayerActivity.jumpTo(FolderListActivity.this, path, null);
+                    }
+                }
+            }
+        }
     }
 }
