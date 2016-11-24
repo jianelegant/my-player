@@ -263,7 +263,7 @@ public class PlayerUIController {
     }
 
     public void setTitle(String name) {
-        if(!TextUtils.isEmpty(name) && null != mTitleView) {
+        if(null != name && null != mTitleView) {
             mTitleView.setText(name);
         }
     }

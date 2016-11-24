@@ -3,6 +3,7 @@ package com.torv.adam.player;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -25,7 +26,7 @@ import tv.danmaku.ijk.media.player.IjkMediaPlayer;
 
 public class PlayerActivity extends AppCompatActivity {
 
-    private static final String EXTRA_KEY_PATH = "extra_key_path";
+    private static final String EXTRA_KEY_PATH = "videoPath";
     private static final String EXTRA_KEY_NAME = "extra_key_name";
 
     private IjkVideoView mVideoView;
@@ -58,12 +59,29 @@ public class PlayerActivity extends AppCompatActivity {
         mVideoView.setHudView(mHudView);
 
         Intent intent = getIntent();
+        if(null == intent) {
+            Toast.makeText(PlayerActivity.this, R.string.VideoView_error_text_unknown, Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
         String path = intent.getStringExtra(EXTRA_KEY_PATH);
-        String name = intent.getStringExtra(EXTRA_KEY_NAME);
-        mVideoView.setVideoPath(path);
+        Uri uri = intent.getData();
+        if(!TextUtils.isEmpty(path)) {
+            mVideoView.setVideoPath(path);
+        } else if(null != uri) {
+            mVideoView.setVideoURI(uri);
+        } else {
+            Toast.makeText(PlayerActivity.this, R.string.VideoView_error_text_unknown, Toast.LENGTH_SHORT).show();
+            finish();
+        }
+
 
         View rootView = findViewById(R.id.id_activity_player);
         mUIController = new PlayerUIController(PlayerActivity.this, rootView, mVideoView);
+        String name = intent.getStringExtra(EXTRA_KEY_NAME);
+        if(null == name) {
+            name = "";
+        }
         mUIController.setTitle(name);
 
         mVideoView.setOnCompletionListener(new IMediaPlayer.OnCompletionListener() {
