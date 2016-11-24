@@ -118,11 +118,13 @@ public class VideoListFragment extends Fragment implements IVideoListContract.IV
 
     static class VideoViewHolder extends RecyclerView.ViewHolder{
 
+        View itemRoot;
         TextView videoName;
         TextView videoDuration;
 
         public VideoViewHolder(View itemView) {
             super(itemView);
+            itemRoot = itemView.findViewById(R.id.id_item_root);
             videoName = (TextView) itemView.findViewById(R.id.id_video_name);
             videoDuration = (TextView) itemView.findViewById(R.id.id_video_duration);
         }
@@ -161,7 +163,7 @@ public class VideoListFragment extends Fragment implements IVideoListContract.IV
 
                 final String pathAndName = videoItem.path;
                 final String name = videoItem.fileName;
-                holder.videoName.setOnClickListener(new View.OnClickListener() {
+                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         PlayerActivity.jumpTo(mContext, pathAndName, name);

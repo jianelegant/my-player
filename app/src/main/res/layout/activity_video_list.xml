@@ -19,6 +19,7 @@
                 android:id="@+id/id_back"
                 android:src="@drawable/back_icon"
                 android:padding="13dp"
+                android:background="?attr/selectableItemBackground"
                 android:layout_width="48dp"
                 android:layout_height="48dp" />
 

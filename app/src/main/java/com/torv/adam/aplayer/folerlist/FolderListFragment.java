@@ -111,11 +111,13 @@ public class FolderListFragment extends Fragment implements IFolderListContract.
 
     static class FolderViewHolder extends RecyclerView.ViewHolder{
 
+        View itemRoot;
         TextView pathName;
         TextView videoCount;
 
         public FolderViewHolder(View itemView) {
             super(itemView);
+            itemRoot = itemView.findViewById(R.id.id_item_root);
             pathName = (TextView) itemView.findViewById(R.id.id_folder_path);
             pathName.setTypeface(Font.instance.getTypeFace(Font.ROBOTO_REGULAR));
             videoCount = (TextView) itemView.findViewById(R.id.id_folder_videocount);
@@ -155,7 +157,7 @@ public class FolderListFragment extends Fragment implements IFolderListContract.
                 holder.pathName.setText(folderItem.bucketDisplayName);
                 holder.videoCount.setText(String.format(mContext.getResources().getString(R.string.xx_vides), folderItem.videoCount));
 
-                holder.pathName.setOnClickListener(new View.OnClickListener() {
+                holder.itemRoot.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         Intent intent = new Intent(mContext, VideoListActivity.class);
