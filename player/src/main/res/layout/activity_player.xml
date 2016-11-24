@@ -29,7 +29,7 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_alignParentTop="true"
-        android:background="#AA000000"
+        android:background="@color/color_transparet_black_bg"
         android:visibility="gone">
 
         <ImageView
@@ -49,8 +49,8 @@
             android:ellipsize="middle"
             android:lines="1"
             android:paddingRight="9dp"
-            android:text="Title.Title.Title.Title.Title.Title.Title.Title.Title.Title.Title.Title.Title.Title.Title.Title.Title.Title.Title.Title.Title.Title.Title.Title.Title"
-            android:textColor="#ffffff"
+            android:text="Title"
+            android:textColor="@color/colorWhite"
             android:textSize="16dp" />
     </RelativeLayout>
 
@@ -60,7 +60,7 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:layout_alignParentBottom="true"
-        android:background="#AA000000"
+        android:background="@color/color_transparet_black_bg"
         android:visibility="gone">
 
         <ImageView
@@ -78,7 +78,7 @@
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/id_pause"
             android:text="00:00:00"
-            android:textColor="#ffff" />
+            android:textColor="@color/colorWhite" />
 
         <TextView
             android:id="@+id/id_duration"
@@ -88,7 +88,7 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="8dp"
             android:text="01:20:02"
-            android:textColor="#ffffff" />
+            android:textColor="@color/colorWhite" />
 
         <SeekBar
             android:id="@+id/id_progress"
@@ -101,6 +101,115 @@
             android:layout_centerVertical="true"
             android:layout_width="match_parent"
             android:progressBackgroundTint="@color/colorWhite"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <!--Volume Panel-->
+    <RelativeLayout
+        android:id="@+id/id_volume_panel"
+        android:layout_centerInParent="true"
+        android:background="@color/color_transparet_black_bg"
+        android:paddingTop="11dp"
+        android:paddingBottom="11dp"
+        android:paddingLeft="22dp"
+        android:paddingRight="22dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/id_volume_icon"
+            android:layout_width="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_height="wrap_content"
+            android:src="@drawable/volume_icon"/>
+
+        <TextView
+            android:id="@+id/id_volume_text"
+            android:text="100%"
+            android:textColor="@color/colorWhite"
+            android:layout_below="@id/id_volume_icon"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:layout_width="46dp"
+            android:textSize="16dp"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <!--Brightness panel-->
+    <RelativeLayout
+        android:id="@+id/id_brightness_panel"
+        android:layout_centerInParent="true"
+        android:background="@color/color_transparet_black_bg"
+        android:paddingTop="11dp"
+        android:paddingBottom="11dp"
+        android:paddingLeft="22dp"
+        android:paddingRight="22dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/id_brightness_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/brightness_icon"/>
+
+        <TextView
+            android:id="@+id/id_brightness_text"
+            android:text="100%"
+            android:textColor="@color/colorWhite"
+            android:layout_below="@id/id_brightness_icon"
+            android:layout_centerHorizontal="true"
+            android:layout_width="44dp"
+            android:gravity="center"
+            android:textSize="16dp"
+            android:layout_height="wrap_content" />
+    </RelativeLayout>
+
+    <!--FF/Rewind panel-->
+    <RelativeLayout
+        android:id="@+id/id_ff_panel"
+        android:layout_centerInParent="true"
+        android:background="@color/color_transparet_black_bg"
+        android:padding="11dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <ImageView
+            android:id="@+id/id_ff_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/fastforward_icon"/>
+
+        <TextView
+            android:id="@+id/id_ff_play_time_text"
+            android:text="00:22:00"
+            android:textColor="@color/colorWhite"
+            android:layout_below="@id/id_ff_icon"
+            android:layout_width="wrap_content"
+            android:textSize="16dp"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/id_ff_div"
+            android:layout_toRightOf="@id/id_ff_play_time_text"
+            android:layout_below="@id/id_ff_icon"
+            android:text="/"
+            android:textColor="@color/colorWhite"
+            android:textSize="16dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:id="@+id/id_ff_total_time_text"
+            android:layout_toRightOf="@id/id_ff_div"
+            android:layout_below="@id/id_ff_icon"
+            android:text="01:22:23"
+            android:textColor="@color/colorWhite"
+            android:textSize="16dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </RelativeLayout>
 </RelativeLayout>

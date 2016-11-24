@@ -3,7 +3,6 @@ package com.torv.adam.player;
 import android.app.Activity;
 import android.os.Handler;
 import android.os.Message;
-import android.text.TextUtils;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
@@ -35,13 +34,27 @@ public class PlayerUIController {
     private int mDuration;
     private boolean isSeekBarTracking = false;
 
-    /** Buttons */
+    /** Controller Buttons */
     private ImageView mPauseOrPlayView;
     private ImageView mBackView;
     private TextView mTitleView;
     private TextView mPlayTimeView;
     private TextView mDurationView;
     private SeekBar mProgressView;
+
+    /** FF/Rewind panel*/
+    private View mFFRewindPanel;
+    private ImageView mFFRewindIcon;
+    private TextView mFFPlayTimeView;
+    private TextView mFFTotalTimeView;
+
+    /** Brightness panel*/
+    private View mBrightnessPanel;
+    private TextView mBrightnessView;
+
+    /** Volume panel*/
+    private View mVolumePanel;
+    private TextView mVolumeView;
 
     /** Some Value*/
     private static final int PROGRESS_MAX = 1000;
@@ -79,8 +92,8 @@ public class PlayerUIController {
         this.mVideoView = videoView;
         mTopController = mRootView.findViewById(R.id.id_top_controller);
         mBottomController = mRootView.findViewById(R.id.id_bottom_controller);
-        mGestureDetector = new PlayerGestureDetector(activity, mGestureCallback);
-        mRootView.setOnTouchListener(new View.OnTouchListener() {
+        mGestureDetector = new PlayerGestureDetector(activity, mVideoView, mGestureCallback);
+        mVideoView.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 mGestureDetector.onTouchEvent(event);
@@ -154,6 +167,20 @@ public class PlayerUIController {
                 updateProgress();
             }
         });
+
+        // FF, Rewind
+        mFFRewindPanel = mRootView.findViewById(R.id.id_ff_panel);
+        mFFRewindIcon = (ImageView) mRootView.findViewById(R.id.id_ff_icon);
+        mFFPlayTimeView = (TextView) mRootView.findViewById(R.id.id_ff_play_time_text);
+        mFFTotalTimeView = (TextView) mRootView.findViewById(R.id.id_ff_total_time_text);
+
+        // Brightness
+        mBrightnessPanel = mRootView.findViewById(R.id.id_brightness_panel);
+        mBrightnessView = (TextView) mRootView.findViewById(R.id.id_brightness_text);
+
+        // Volume
+        mVolumePanel = mRootView.findViewById(R.id.id_volume_panel);
+        mVolumeView = (TextView) mRootView.findViewById(R.id.id_volume_text);
     }
 
     private void onUserSeek(int progress) {
@@ -177,35 +204,67 @@ public class PlayerUIController {
         }
 
         @Override
-        public void onFF() {
-
+        public void onFF(int playTime, int totalTime) {
+            updateFFPanel(playTime, totalTime, true);
         }
 
         @Override
-        public void onRewind() {
-
+        public void onRewind(int playTime, int totalTime) {
+            updateFFPanel(playTime, totalTime, false);
         }
 
         @Override
-        public void onVolumeUp() {
-
+        public void onVolumeChanged(float value) {
+            updateVolumePanel(value);
         }
 
         @Override
-        public void onVolumeDown() {
-
+        public void onBrightnessChanged(float value) {
+            updateBrightnessPanel(value);
         }
 
         @Override
-        public void onBrightUp() {
-
-        }
-
-        @Override
-        public void onBrightDown() {
-
+        public void hidePanel() {
+            if(null != mFFRewindPanel) {
+                mFFRewindPanel.setVisibility(View.GONE);
+            }
+            if(null != mBrightnessPanel) {
+                mBrightnessPanel.setVisibility(View.GONE);
+            }
+            if(null != mVolumePanel) {
+                mVolumePanel.setVisibility(View.GONE);
+            }
         }
     };
+
+    private void updateVolumePanel(float value) {
+        if(null != mVolumePanel) {
+            mVolumePanel.setVisibility(View.VISIBLE);
+            int displayValue = (int) (value * 100);
+            mVolumeView.setText(displayValue + "%");
+        }
+    }
+
+    private void updateBrightnessPanel(float value) {
+        if(null != mBrightnessPanel) {
+            mBrightnessPanel.setVisibility(View.VISIBLE);
+            int displayValue = (int) (value * 100);
+            mBrightnessView.setText(displayValue + "%");
+        }
+    }
+
+    private void updateFFPanel(int playTime, int totalTime, boolean isFF) {
+        if(null != mFFRewindPanel) {
+            mFFRewindPanel.setVisibility(View.VISIBLE);
+            if(isFF) {
+                mFFRewindIcon.setImageResource(R.drawable.fastforward_icon);
+            } else {
+                mFFRewindIcon.setImageResource(R.drawable.rewind_icon);
+            }
+            mFFPlayTimeView.setText(Util.convertMs2HMS(playTime));
+            mFFTotalTimeView.setText(Util.convertMs2HMS(totalTime));
+        }
+    }
 
     private void hideOrShowController() {
         if(null == mTopController || null == mBottomController) {
@@ -271,11 +330,10 @@ public class PlayerUIController {
     public interface GestureCallback{
         public void onPauseOrPlay();
         public void onHideOrShowController();
-        public void onFF();
-        public void onRewind();
-        public void onVolumeUp();
-        public void onVolumeDown();
-        public void onBrightUp();
-        public void onBrightDown();
+        public void onFF(int playTime, int totalTime);
+        public void onRewind(int playTime, int totalTime);
+        public void onVolumeChanged(float value);
+        public void onBrightnessChanged(float value);
+        public void hidePanel();
     }
 }

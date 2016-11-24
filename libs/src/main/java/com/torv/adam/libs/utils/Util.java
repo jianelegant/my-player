@@ -1,6 +1,8 @@
 package com.torv.adam.libs.utils;
 
+import android.app.Activity;
 import android.text.TextUtils;
+import android.view.WindowManager;
 
 import java.text.DecimalFormat;
 import java.util.concurrent.TimeUnit;
@@ -10,6 +12,28 @@ import java.util.concurrent.TimeUnit;
  */
 
 public class Util {
+
+    public static float getBrightness(Activity activity) {
+        if(null == activity) {
+            return 0;
+        } else {
+            WindowManager.LayoutParams layoutParams = activity.getWindow().getAttributes();
+            return layoutParams.screenBrightness;
+        }
+    }
+
+    public static void setBrightness(Activity activity, float value) {
+        if(null != activity) {
+            if(value < 0.01f) {
+                value = 0.01f;
+            } else if(value > 1.0f) {
+                value = 1.0f;
+            }
+            WindowManager.LayoutParams layoutParams = activity.getWindow().getAttributes();
+            layoutParams.screenBrightness = value;
+            activity.getWindow().setAttributes(layoutParams);
+        }
+    }
 
     /**
      * Convert Byte to display format K / M / G
