@@ -333,7 +333,7 @@ public class FileDialog extends ListActivity {
 			selectedFile = file;
 			v.setSelected(true);
 			selectButton.setEnabled(true);
-			getIntent().putExtra(RESULT_PATH, selectedFile.getPath());
+			getIntent().putExtra(RESULT_PATH, selectedFile.getAbsolutePath());
 			setResult(RESULT_OK, getIntent());
 			finish();
 		}

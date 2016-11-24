@@ -126,7 +126,13 @@ public class FolderListActivity extends AppCompatActivity {
                 if(null != data) {
                     String path = data.getStringExtra(FileDialog.RESULT_PATH);
                     if(!TextUtils.isEmpty(path)) {
-                        PlayerActivity.jumpTo(FolderListActivity.this, path, null);
+                        int startIndex = path.lastIndexOf("/") + 1;
+                        int endIndex = path.length();
+                        String name = null;
+                        if(startIndex >= 0 && endIndex > 0 && startIndex <= endIndex) {
+                            name = path.substring(startIndex, endIndex);
+                        }
+                        PlayerActivity.jumpTo(FolderListActivity.this, path, name);
                     }
                 }
             }
