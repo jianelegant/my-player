@@ -2,7 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.torv.adam.aplayer">
 
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <!-- *************************************  flurry start *************************************-->
+    <!-- Required permissions - Internet access -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <!-- Recommended permission - External memory pre-caching -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <!-- Optional permission - Location based ad targeting -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <!-- *************************************  flurry end *************************************-->
 
     <application
         android:name=".MainApplication"

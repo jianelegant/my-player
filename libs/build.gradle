@@ -22,4 +22,5 @@ dependencies {
     compile rootProject.ext.dependencies.recyclerviewV7
     compile rootProject.ext.dependencies.cardview
     compile rootProject.ext.dependencies.jobqueue
+    compile rootProject.ext.dependencies.flurry
 }

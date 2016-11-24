@@ -37,7 +37,8 @@ ext {
 
             ijkplayerJava: 'tv.danmaku.ijk.media:ijkplayer-java:0.7.4',
             ijkplayerArmV5: 'tv.danmaku.ijk.media:ijkplayer-armv5:0.7.4',
-            ijkplayerArmV7: 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.7.4'
+            ijkplayerArmV7: 'tv.danmaku.ijk.media:ijkplayer-armv7a:0.7.4',
+            flurry: 'com.flurry.android:analytics:6.4.2'
     ]
 }
 
