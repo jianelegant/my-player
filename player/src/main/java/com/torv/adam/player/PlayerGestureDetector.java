@@ -36,6 +36,9 @@ public class PlayerGestureDetector {
     private final GestureDetector mGestureDetector;
     private final PlayerUIController.GestureCallback mGestureCallback;
 
+    // Disable the edge of the screen, reduce mistake gesture, ex: drag down the notification bar
+    private boolean isValid = true;
+
     public PlayerGestureDetector(Activity activity, IjkVideoView videoView, PlayerUIController.GestureCallback gestureCallback) {
         mActivity = activity;
         mGestureDetector = new GestureDetector(activity, new PlayerGestureListener());
@@ -44,19 +47,52 @@ public class PlayerGestureDetector {
     }
 
     public void onTouchEvent(MotionEvent event){
-        mGestureDetector.onTouchEvent(event);
 
         int action = event.getActionMasked();
+        if(isValid && (MotionEvent.ACTION_DOWN == action)) {
+            isValid = isEventValid(event);
+        }
+
+        mGestureDetector.onTouchEvent(event);
+
         if (action == MotionEvent.ACTION_UP || action == MotionEvent.ACTION_CANCEL) {
             mScrollType = ScrollType.NONE;
             mGestureCallback.hidePanel();
+            isValid = true;
+            L.d(TAG, "isValid = " +isValid);
         }
+    }
+
+    /**
+     * touch event on the screen endge disabled.
+     */
+    private boolean isEventValid(MotionEvent event) {
+        boolean isValid = true;
+        int height = mVideoView.getMeasuredHeight();
+        int width = mVideoView.getMeasuredWidth();
+        int xFactor = (int) (width * 0.1);
+        int yFactor = (int) (height * 0.1);
+        int left = xFactor;
+        int right = width - xFactor;
+        int top = yFactor;
+        int bottom = height - yFactor;
+        float x = event.getX();
+        float y = event.getY();
+        if (x < left || x > right || y < top || y > bottom) {
+            isValid = false;
+        }
+        L.d(TAG, "isValid = " +isValid);
+
+        return isValid;
     }
 
     class PlayerGestureListener extends GestureDetector.SimpleOnGestureListener{
         @Override
         public boolean onScroll(MotionEvent e1, MotionEvent e2, float distanceX, float distanceY) {
             L.d(TAG);
+            if(!isValid) {
+                return false;
+            }
             if(ScrollType.NONE == mScrollType) {
                 if (Math.abs(distanceX) > Math.abs(distanceY)) {
                     mScrollType = ScrollType.FFORREWIND;
