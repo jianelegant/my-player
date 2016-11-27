@@ -21,6 +21,7 @@ public class PlayerGestureDetector {
 
     private static final int BRIGHTNESS_FACTOR = 3;
     private static final int VOLUME_FACTOR = 3;
+    private static final int FF_FACTOR = 9;
 
     private enum ScrollType {
         NONE,
@@ -103,7 +104,7 @@ public class PlayerGestureDetector {
         }
         if(ScrollType.FFORREWIND == mScrollType) {
             // FF or Rewind
-            float percent = distanceX / (float) mVideoView.getMeasuredWidth();
+            float percent = distanceX / (float) mVideoView.getMeasuredWidth() / FF_FACTOR;
             int total = mVideoView.getDuration();
             int currPosition = mVideoView.getCurrentPosition();
             int seekOffset = (int) (total * percent * -1);
