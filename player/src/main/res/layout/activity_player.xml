@@ -40,12 +40,33 @@
             android:background="?attr/selectableItemBackground"
             android:src="@drawable/back_icon" />
 
+        <ImageView
+            android:id="@+id/id_battery"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/battery_4"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="20dp"
+            android:layout_width="21dp"
+            android:layout_height="21dp" />
+
+        <TextView
+            android:id="@+id/id_time"
+            android:text="12:34"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/id_battery"
+            android:layout_marginRight="10dp"
+            android:textSize="12dp"
+            android:textColor="@color/colorWhite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
         <TextView
             android:id="@+id/id_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toRightOf="@id/id_back"
+            android:layout_toLeftOf="@id/id_time"
             android:ellipsize="middle"
             android:lines="1"
             android:paddingRight="9dp"

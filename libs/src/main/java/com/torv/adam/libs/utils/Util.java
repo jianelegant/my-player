@@ -1,6 +1,10 @@
 package com.torv.adam.libs.utils;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.BatteryManager;
 import android.text.TextUtils;
 import android.view.WindowManager;
 
@@ -12,6 +16,21 @@ import java.util.concurrent.TimeUnit;
  */
 
 public class Util {
+
+    public static int getBatteryLevel(Context context) {
+        if(null == context) {
+            return -1;
+        }
+        IntentFilter ifilter = new IntentFilter(Intent.ACTION_BATTERY_CHANGED);
+        Intent batteryStatus = context.registerReceiver(null, ifilter);
+
+        int level = batteryStatus.getIntExtra(BatteryManager.EXTRA_LEVEL, -1);
+        int scale = batteryStatus.getIntExtra(BatteryManager.EXTRA_SCALE, -1);
+
+        float batteryPct = (float) level / (float)scale;
+
+        return (int)(batteryPct*100);
+    }
 
     public static float getBrightness(Activity activity) {
         if(null == activity) {

@@ -13,6 +13,9 @@ import com.torv.adam.libs.utils.L;
 import com.torv.adam.libs.utils.Util;
 import com.torv.adam.player.media.IjkVideoView;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import tv.danmaku.ijk.media.player.IMediaPlayer;
 
 /**
@@ -55,6 +58,10 @@ public class PlayerUIController {
     /** Volume panel*/
     private View mVolumePanel;
     private TextView mVolumeView;
+
+    /** Battery and time*/
+    private ImageView mBatteryView;
+    private TextView mTimeView;
 
     /** Some Value*/
     private static final int PROGRESS_MAX = 1000;
@@ -181,6 +188,10 @@ public class PlayerUIController {
         // Volume
         mVolumePanel = mRootView.findViewById(R.id.id_volume_panel);
         mVolumeView = (TextView) mRootView.findViewById(R.id.id_volume_text);
+
+        // Battery and time
+        mBatteryView = (ImageView) mRootView.findViewById(R.id.id_battery);
+        mTimeView = (TextView) mRootView.findViewById(R.id.id_time);
     }
 
     private void onUserSeek(int progress) {
@@ -288,8 +299,12 @@ public class PlayerUIController {
             // Show
             mTopController.setVisibility(View.VISIBLE);
             mBottomController.setVisibility(View.VISIBLE);
-            updateProgress();
             mHandler.sendEmptyMessageDelayed(HANDLER_MSG_HIDE_CONTROLLER, HANDLER_HIDE_CONTROLLER_DELAY_TIME);
+
+            // update status
+            updateProgress();
+            updateTime();
+            updateBattery();
         }
     }
 
@@ -324,6 +339,30 @@ public class PlayerUIController {
     public void setTitle(String name) {
         if(null != name && null != mTitleView) {
             mTitleView.setText(name);
+        }
+    }
+
+    private void updateTime() {
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("HH:mm");
+        Date date = new Date(System.currentTimeMillis());
+        String time = simpleDateFormat.format(date);
+        mTimeView.setText(time);
+    }
+
+    private void updateBattery() {
+        int level = Util.getBatteryLevel(mActivity);
+        if(level < 0) {
+            // do nothing
+        } else if(level < 10) {
+            mBatteryView.setImageResource(R.drawable.battery_0);
+        } else if(level < 25) {
+            mBatteryView.setImageResource(R.drawable.battery_1);
+        } else if(level < 50) {
+            mBatteryView.setImageResource(R.drawable.battery_2);
+        } else if(level < 75) {
+            mBatteryView.setImageResource(R.drawable.battery_3);
+        } else if(level <= 100) {
+            mBatteryView.setImageResource(R.drawable.battery_4);
         }
     }
 
